@@ -126,7 +126,7 @@ if(!exists("funX")){
 
 
 # Default working directory
-defaultDir <- "/scratch/project_2000994/srinetri/regional/regional_newV"
+defaultDir <- "/scratch/project_2000994/srinetri/regional/regRuns_newV"
 
 
 # Forest centre
@@ -359,6 +359,6 @@ regIDs <- stats[4:22,3:4]
 setkey(regIDs,regID)
 
 ### Load additional input data for newV
-#load(paste0("/scratch/project_2000994/srinetri/regional/regional_newV/newV_inputs/latitude_",r_no,".rdata"))
-#load(paste0("/scratch/project_2000994/srinetri/regional/regional_newV/newV_inputs/P0currClim_",r_no,".rdata"))
-#load(paste0("/scratch/project_2000994/srinetri/regional/regional_newV/newV_inputs/fT0_",r_no,".rdata"))
+#load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/newV_inputs/latitude_",r_no,".rdata"))
+#load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/newV_inputs/P0currClim_",r_no,".rdata"))
+#load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/newV_inputs/fT0_",r_no,".rdata"))
