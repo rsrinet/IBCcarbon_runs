@@ -1,4 +1,4 @@
-devtools::source_url("https://raw.githubusercontent.com/rsrinet/IBCcarbon_runs/master/cal_currV/Rsrc/settings.r")
+devtools::source_url("https://raw.githubusercontent.com/rsrinet/IBCcarbon_runs/master/calRuns_currV/Rsrc/settings.r")
 source_url("https://raw.githubusercontent.com/rsrinet/IBCcarbon_runs/master/general/functions.r")
 
 setX=9
