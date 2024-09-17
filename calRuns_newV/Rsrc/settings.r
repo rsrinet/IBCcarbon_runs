@@ -42,7 +42,7 @@ library(DescTools)
 
 # Load functions
 # devtools::source_url("https://raw.githubusercontent.com/ForModLabUHel/IBCcarbon_runs/master/general/functions.r")
-source("Rsrc/functions_newV.r")
+devtools::source_url("https://raw.githubusercontent.com/rsrinet/IBCcarbon_runs/master/general/functions.r")
 
 
 # r_no = regions = 2  ### forest center ID
