@@ -66,7 +66,7 @@ for(varX in varXs){
                                       varX,"_",min(per1),"-",max(per1),
                                       "_harscen",harvScen,
                                       "_harInten",harvInten,"_",
-                                      rcpfile,".tiff"),overwrite=T)
+                                      rcpfile,".tif"),overwrite=T)
   hist(rastX, main = paste(varX,"per1"))
   
   rastX <- rasterFromXYZ(tabX[,.(x,y,per2)])
@@ -75,7 +75,7 @@ for(varX in varXs){
                                       varX,"_",min(per2),"-",max(per2),
                                       "_harscen",harvScen,
                                       "_harInten",harvInten,"_",
-                                      rcpfile,".tiff"),overwrite=T)
+                                      rcpfile,".tif"),overwrite=T)
   hist(rastX, main = paste(varX,"per2"))
   
   rastX <- rasterFromXYZ(tabX[,.(x,y,per3)])
@@ -84,7 +84,7 @@ for(varX in varXs){
                                       varX,"_",min(per3),"-",max(per3),
                                       "_harscen",harvScen,
                                       "_harInten",harvInten,"_",
-                                      rcpfile,".tiff"),overwrite=T)
+                                      rcpfile,".tif"),overwrite=T)
   hist(rastX, main = paste(varX,"per3"))
   rm(tabX);gc()
   rm(rastX);gc()
@@ -118,7 +118,7 @@ if(file.exists(paste0("rasters/forCent",r_no,"/",
   crs(rastFert) <- crsX
   # rastFert <- resample(rastFert, npp,method="ngb")
   
-  writeRaster(rastFert,filename = paste0("rasters/forCent",r_no,"/siteType.tiff"),overwrite=T)
+  writeRaster(rastFert,filename = paste0("rasters/forCent",r_no,"/siteType.tif"),overwrite=T)
   
   rm(list=ls());gc()
   
