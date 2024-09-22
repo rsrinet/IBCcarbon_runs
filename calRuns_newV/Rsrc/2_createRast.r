@@ -40,8 +40,8 @@ pdf(paste0("plots/histRast_",r_no,
            rcpfile,".pdf"))
 
 if(!exists("varXs")) varXs <- c(varNames[varSel], specialVars)
-# varXs[1] <- "NEP"
-# varXs[22] <- "Rh"
+varXs[1] <- "NEP"
+varXs[22] <- "Rh"
 for(varX in varXs){
   # varX <- varXs[1]
   fileXs <- list.files(path = paste0(pathFiles), pattern = paste0(varX,"_harscen",harvScen,"_harInten",harvInten,"_",rcps))
