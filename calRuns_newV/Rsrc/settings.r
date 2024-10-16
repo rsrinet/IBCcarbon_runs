@@ -198,6 +198,7 @@ if(regSets=="forCent"){
   load(paste0("/scratch/project_2000994/PREBASruns/finRuns/input/forCent/data.all_forCent_",r_no,".rdata"))
 }else{
   load(paste0("/scratch/project_2000994/PREBASruns/finRuns/input/maakunta/data.all_maakunta_",r_no,".rdata"))
+  load(paste0("/scratch/project_2000994/PREBASruns/finRuns/input/maakunta/maakunta_",r_no,"_IDsTab.rdata"))
   data.all$segID <- data.all$maakuntaID
 }
 ####procData
