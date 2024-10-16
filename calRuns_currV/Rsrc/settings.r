@@ -1,4 +1,4 @@
-# CSCrun=T
+CSCrun=T
 require(devtools)
 library(raster)
 library(rgdal)
