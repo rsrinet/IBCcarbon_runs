@@ -1465,7 +1465,7 @@ specialVarProc <- function(sampleX,region,r_no,harvScen,harvInten,rcpfile,sample
     sampleID = sampleID))))
   
   
-  rm(domSpecies,domAge,Vdec,WenergyWood,Wtot,pX,p1,p2,p3); gc()
+  rm(domSpecies,domAge,Vdec,WenergyWood,Wtot); gc()#,pX,p1,p2,p3); gc()
   if(sampleID==sampleForPlots){dev.off()}
   
 } 
