@@ -891,11 +891,11 @@ runModOut <- function(sampleID, sampleX,modOut,r_no,harvScen,harvInten,rcpfile,a
     # print(outX)
     if(sampleID==sampleForPlots){testPlot(outX,varNames[varSel[ij]],areas)}
     
-    p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-    p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-    p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
+    # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
+    # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
+    # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
     
-    pX <- data.table(p1,p2[,2],p3[,2]) # can be the same segment multiple times
+    pX <- outX #data.table(p1,p2[,2],p3[,2]) # can be the same segment multiple times
     
     ##check for NAs
     nax <- data.table(segID=unique(which(is.na(pX),arr.ind=T)[,1]))
@@ -987,10 +987,10 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
   areas <- data.sample$area
   if (vPREBAS == "master") latitude=data.sample$latitude
   if (vPREBAS == "newVersion"){
-  latitude <- latitude.dt$latitude[match(data.sample$segID,latitude.dt$segID)]
-  id_P0fT <- data.sample$CurrClimID[match(clim$id, data.sample$id)]
-  P0currClim <- P0.dt$P0currClim[match(id_P0fT,P0.dt$id)]
-  fT0 <- fT0.dt$fT0[match(id_P0fT,fT0.dt$id)]
+    latitude <- latitude.dt$latitude[match(data.sample$segID,latitude.dt$segID)]
+    id_P0fT <- data.sample$CurrClimID[match(clim$id, data.sample$id)]
+    P0currClim <- P0.dt$P0currClim[match(id_P0fT,P0.dt$id)]
+    fT0 <- fT0.dt$fT0[match(id_P0fT,fT0.dt$id)]
   }
   ###site Info matrix. nrow = nSites, cols: 1 = siteID; 2 = climID; 3=site type;
   ###4 = nLayers; 5 = nSpecies;
@@ -1198,47 +1198,47 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
   # print(paste0("siteinfo ", dim(siteInfo)))
   if (vPREBAS == "master"){
     initPrebas <- InitMultiSite(nYearsMS = rep(nYears,nSites),siteInfo=siteInfo,
-                              # litterSize = litterSize,#pAWEN = parsAWEN,
-                              pPRELES = pPRELES,
-                              pCROBAS = pCrobasX,
-                              defaultThin=defaultThin,
-                              ClCut = ClCut, areas =areas,
-                              energyCut = energyCut, 
-                              ftTapioPar = ftTapioParX,
-                              tTapioPar = tTapioParX,
-                              multiInitVar = as.array(initVar),
-                              PAR = clim$PAR[, 1:(nYears*365)],
-                              TAir=clim$TAir[, 1:(nYears*365)],
-                              VPD=clim$VPD[, 1:(nYears*365)],
-                              Precip=clim$Precip[, 1:(nYears*365)],
-                              CO2=clim$CO2[, 1:(nYears*365)],
-                              yassoRun = 1,
-                              mortMod = mortMod,
-                              latitude=latitude)
-    }
+                                # litterSize = litterSize,#pAWEN = parsAWEN,
+                                pPRELES = pPRELES,
+                                pCROBAS = pCrobasX,
+                                defaultThin=defaultThin,
+                                ClCut = ClCut, areas =areas,
+                                energyCut = energyCut, 
+                                ftTapioPar = ftTapioParX,
+                                tTapioPar = tTapioParX,
+                                multiInitVar = as.array(initVar),
+                                PAR = clim$PAR[, 1:(nYears*365)],
+                                TAir=clim$TAir[, 1:(nYears*365)],
+                                VPD=clim$VPD[, 1:(nYears*365)],
+                                Precip=clim$Precip[, 1:(nYears*365)],
+                                CO2=clim$CO2[, 1:(nYears*365)],
+                                yassoRun = 1,
+                                mortMod = mortMod,
+                                latitude=latitude)
+  }
   if (vPREBAS == "newVersion"){
     initPrebas <- InitMultiSite(nYearsMS = rep(nYears,nSites),siteInfo=siteInfo,
-                              # litterSize = litterSize,#pAWEN = parsAWEN,
-                              pPRELES = pPRELES,
-                              pCROBAS = pCrobasX,
-                              defaultThin=defaultThin,
-                              ClCut = ClCut, areas =areas,
-                              energyCut = energyCut, 
-                              ftTapioPar = ftTapioParX,
-                              tTapioPar = tTapioParX,
-                              multiInitVar = as.array(initVar),
-                              PAR = clim$PAR[, 1:(nYears*365)],
-                              TAir=clim$TAir[, 1:(nYears*365)],
-                              VPD=clim$VPD[, 1:(nYears*365)],
-                              Precip=clim$Precip[, 1:(nYears*365)],
-                              CO2=clim$CO2[, 1:(nYears*365)],
-                              yassoRun = 1,
-                              mortMod = mortMod, 
-                              ECMmod = 1, pCN_alfar= parsCN_alfar, 
-                              alpharVersion = 1,  alpharNcalc = T,
-                              latitude=latitude, 
-                              p0currClim = P0currClim, 
-                              fT0AvgCurrClim = fT0)
+                                # litterSize = litterSize,#pAWEN = parsAWEN,
+                                pPRELES = pPRELES,
+                                pCROBAS = pCrobasX,
+                                defaultThin=defaultThin,
+                                ClCut = ClCut, areas =areas,
+                                energyCut = energyCut, 
+                                ftTapioPar = ftTapioParX,
+                                tTapioPar = tTapioParX,
+                                multiInitVar = as.array(initVar),
+                                PAR = clim$PAR[, 1:(nYears*365)],
+                                TAir=clim$TAir[, 1:(nYears*365)],
+                                VPD=clim$VPD[, 1:(nYears*365)],
+                                Precip=clim$Precip[, 1:(nYears*365)],
+                                CO2=clim$CO2[, 1:(nYears*365)],
+                                yassoRun = 1,
+                                mortMod = mortMod, 
+                                ECMmod = 1, pCN_alfar= parsCN_alfar, 
+                                alpharVersion = 1,  alpharNcalc = T,
+                                latitude=latitude, 
+                                p0currClim = P0currClim, 
+                                fT0AvgCurrClim = fT0)
   }
   
   if(!is.null(outModReStart)){
@@ -1352,105 +1352,105 @@ specialVarProc <- function(sampleX,region,r_no,harvScen,harvInten,rcpfile,sample
   ####test plot
   if(sampleID==sampleForPlots){testPlot(outX,"domSpecies",areas)}
   ###take the most frequent species in the periods
-  p1 <- outX[, .(per1 = Mode(as.numeric(unlist(.SD)))[1]), .SDcols = colsOut1, by = segID]
-  p2 <- outX[, .(per2 = Mode(as.numeric(unlist(.SD)))[1]), .SDcols = colsOut2, by = segID]
-  p3 <- outX[, .(per3 = Mode(as.numeric(unlist(.SD)))[1]), .SDcols = colsOut3, by = segID]
-  pX <- merge(p1,p2)
-  pX <- merge(pX,p3)
-  domSpecies <- pX
+  # p1 <- outX[, .(per1 = Mode(as.numeric(unlist(.SD)))[1]), .SDcols = colsOut1, by = segID]
+  # p2 <- outX[, .(per2 = Mode(as.numeric(unlist(.SD)))[1]), .SDcols = colsOut2, by = segID]
+  # p3 <- outX[, .(per3 = Mode(as.numeric(unlist(.SD)))[1]), .SDcols = colsOut3, by = segID]
+  # pX <- merge(p1,p2)
+  # pX <- merge(pX,p3)
+  domSpecies <- outX #pX
   
   
   # rm(domSpecies); gc()
   ###age dominant species
   outX <- domFun(region,varX="age")
-  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  pX <- merge(p1,p2)
-  pX <- merge(pX,p3)
-  domAge <- pX
+  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
+  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
+  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
+  # pX <- merge(p1,p2)
+  # pX <- merge(pX,p3)
+  domAge <- outX #pX
   
   
   ###deciduous Volume Vdec
   outX <- vDecFun(region)
   if(sampleID==sampleForPlots){testPlot(outX,"Vdec",areas)}
-  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  pX <- merge(p1,p2)
-  pX <- merge(pX,p3)
-  Vdec <- pX
+  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
+  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
+  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
+  # pX <- merge(p1,p2)
+  # pX <- merge(pX,p3)
+  Vdec <- outX #pX
   
   
   ###pine Volume Vpine
   outX <- vSpFun(region,SpID=1)
   if(sampleID==sampleForPlots){testPlot(outX,"Vpine",areas)}
-  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  pX <- merge(p1,p2)
-  pX <- merge(pX,p3)
-  Vpine <- pX
+  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
+  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
+  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
+  # pX <- merge(p1,p2)
+  # pX <- merge(pX,p3)
+  Vpine <- outX #pX
   
   
   ###Spruce Volume Vspruce
   outX <- vSpFun(region,SpID = 2)
   if(sampleID==sampleForPlots){testPlot(outX,"Vspruce",areas)}
-  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  pX <- merge(p1,p2)
-  pX <- merge(pX,p3)
-  Vspruce <- pX
+  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
+  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
+  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
+  # pX <- merge(p1,p2)
+  # pX <- merge(pX,p3)
+  Vspruce <- outX #pX
   
   ####WenergyWood
   outX <- data.table(segID=sampleX$segID,apply(region$multiEnergyWood[,,,2],1:2,sum))
   if(sampleID==sampleForPlots){testPlot(outX,"WenergyWood",areas)}
-  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  pX <- merge(p1,p2)
-  WenergyWood <- merge(pX,p3)
+  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
+  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
+  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
+  # pX <- merge(p1,p2)
+  WenergyWood <- outX #merge(pX,p3)
   
   
   ####VenergyWood
   outX <- data.table(segID=sampleX$segID,apply(region$multiEnergyWood[,,,1],1:2,sum))
   if(sampleID==sampleForPlots){testPlot(outX,"VenergyWood",areas)}
-  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  pX <- merge(p1,p2)
-  VenergyWood <- merge(pX,p3)
+  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
+  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
+  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
+  # pX <- merge(p1,p2)
+  VenergyWood <- outX #merge(pX,p3)
   
   
   ####GVgpp
   outX <- data.table(segID=sampleX$segID,region$GVout[,,3])
   if(sampleID==sampleForPlots){testPlot(outX,"GVgpp",areas)}
-  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  pX <- merge(p1,p2)
-  GVgpp <- merge(pX,p3)
+  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
+  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
+  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
+  # pX <- merge(p1,p2)
+  GVgpp <- outX #merge(pX,p3)
   
   
   ####GVw
   outX <- data.table(segID=sampleX$segID,region$GVout[,,4])
   if(sampleID==sampleForPlots){testPlot(outX,"GVw",areas)}
-  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  pX <- merge(p1,p2)
-  GVw <- merge(pX,p3)
+  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
+  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
+  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
+  # pX <- merge(p1,p2)
+  GVw <- outX #merge(pX,p3)
   
   
   ####Wtot
   outX <- data.table(segID=sampleX$segID,apply(region$multiOut[,,c(24,25,31,32,33),,1],1:2,sum))
   if(sampleID==sampleForPlots){testPlot(outX,"Wtot",areas)}
-  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  pX <- merge(p1,p2)
-  Wtot <- merge(pX,p3)
+  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
+  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
+  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
+  # pX <- merge(p1,p2)
+  Wtot <- outX #merge(pX,p3)
   
   
   # Save all outputs
