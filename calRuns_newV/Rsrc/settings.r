@@ -92,18 +92,27 @@ if(!exists("NLimit")) pCROBAS[42,1:3] <- 1
 if(!exists("pCrobasX")) pCrobasX <-pCROBAS
 pCrobasX[17,1:3] <- pCROBAS[17,1:3]
 
-varOuts <- c("NEP", "GPPtrees", "npp", "grossGrowth/bb BA disturbed", 
+varOuts <- c("NEP/SMI[layer_1]", "GPPtrees", "npp", "grossGrowth", 
              "soilC", "V", "age", "WroundWood","VroundWood",
              "Litter_fol", "Litter_fr", 
              "Litter_fWoody", "Litter_cWoody",
              "DeadWoodVolume", "D", "BA", "H", "Vmort","Wdb",
-             "Hc_base", "wf_STKG", "Rh")
+             "Hc_base", "wf_STKG", "Rh/SBBpob[layer_1]")
 if(!exists("varSel")){
   varSel <- match(varOuts,varNames)
 }
-# varOuts[1] <- varNames[46] <- "NEP"
-# varOuts[22] <- varNames[45] <- "Rh"
-varOuts[4] <- varNames[43] <- "grossGrowth"
+# varOuts <- c("NEP", "GPPtrees", "npp", "grossGrowth/bb BA disturbed", 
+#              "soilC", "V", "age", "WroundWood","VroundWood",
+#              "Litter_fol", "Litter_fr", 
+#              "Litter_fWoody", "Litter_cWoody",
+#              "DeadWoodVolume", "D", "BA", "H", "Vmort","Wdb",
+#              "Hc_base", "wf_STKG", "Rh")
+if(!exists("varSel")){
+  varSel <- match(varOuts,varNames)
+}
+varOuts[1] <- varNames[46] <- "NEP"
+varOuts[22] <- varNames[45] <- "Rh"
+# varOuts[4] <- varNames[43] <- "grossGrowth"
 
 if(!exists("specialVars")){
   specialVars <- c("domSpecies","domAge","Vdec","Vpine","Vspruce","VenergyWood",
