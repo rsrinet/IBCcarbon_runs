@@ -359,3 +359,6 @@ if(regSets=="maakunta"){
 
 regIDs <- stats[4:22,3:4]
 setkey(regIDs,regID)
+
+### Load additional input data
+load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_currV/add_inputs/latitude_",r_no,".rdata"))
