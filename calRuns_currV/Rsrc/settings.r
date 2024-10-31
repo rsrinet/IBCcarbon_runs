@@ -96,7 +96,7 @@ pCrobasX[17,1:3] <- pCROBAS[17,1:3]
 #              "DeadWoodVolume", "D", "BA", "H", "Vmort","Wdb",
 #              "Hc_base", "wf_STKG", "Rh/SBBpob[layer_1]")
 
-varOuts <- c("NEP", "GPPtrees", "npp", "grossGrowth/bb BA disturbed",
+varOuts <- c("NEP", "GPPtrees", "npp", "grossGrowth",
              "soilC", "V", "age", "WroundWood","VroundWood",
              "Litter_fol", "Litter_fr",
              "Litter_fWoody", "Litter_cWoody",
