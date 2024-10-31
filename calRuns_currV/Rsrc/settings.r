@@ -199,16 +199,6 @@ if(regSets=="forCent"){
   data.all$segID <- data.all$maakuntaID
 }
 ####procData
-cord.ne = SpatialPoints(cbind(data.IDs$x,data.IDs$y), proj4string=CRS("+init=EPSG:3067"))
-location<-as.data.frame(spTransform(cord.ne, CRS("+init=epsg:4326")))
-rm(list=c("cord.ne")); gc()
-lat <- location$coords.x2
-rm(list=c("location")); gc()
-data.IDs$latitude <- lat
-rm(list=c("lat")); gc()
-
-latitude <- aggregate(.~maakuntaID, data=data.IDs, mean)$latitude
-
 data.all <- data.all[fert %in% siteTypes]
 data.all <- data.all[landclass %in% landClassX]
 cloudpixels = data.all[, sum(ba==32766)]
