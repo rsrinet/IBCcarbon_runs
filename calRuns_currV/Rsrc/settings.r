@@ -89,12 +89,19 @@ if(!exists("pCROBAS")) pCROBAS <- pCROB
 if(!exists("pCrobasX")) pCrobasX <- pCROBAS
 pCrobasX[17,1:3] <- pCROBAS[17,1:3]
 
-varOuts <- c("NEP","GPPtrees", "npp", "grossGrowth/bb BA disturbed", 
+# varOuts <- c("NEP/SMI[layer_1]", "GPPtrees", "npp", "grossGrowth", 
+#              "soilC", "V", "age", "WroundWood","VroundWood",
+#              "Litter_fol", "Litter_fr", 
+#              "Litter_fWoody", "Litter_cWoody",
+#              "DeadWoodVolume", "D", "BA", "H", "Vmort","Wdb",
+#              "Hc_base", "wf_STKG", "Rh/SBBpob[layer_1]")
+
+varOuts <- c("NEP", "GPPtrees", "npp", "grossGrowth/bb BA disturbed",
              "soilC", "V", "age", "WroundWood","VroundWood",
-             "Litter_fol", "Litter_fr", 
+             "Litter_fol", "Litter_fr",
              "Litter_fWoody", "Litter_cWoody",
              "DeadWoodVolume", "D", "BA", "H", "Vmort","Wdb",
-             "Hc_base","wf_STKG","Rh")
+             "Hc_base", "wf_STKG", "Rh")
 if(!exists("varSel")){
   varSel <- match(varOuts,varNames)
 }
@@ -214,7 +221,6 @@ setnames(data.all,"nPix","N")
 ## REMOVE CLOUD COVERED, AND WHERE cons = NA (...? why)
 data.all = data.all[ba < 32766]
 data.all = data.all[!is.na(cons)]
-data.all <- data.all[, latitude := latitude]
 
 ####load data
 # load("outSoil/InitSoilCstst_Base.rdata")
