@@ -103,7 +103,7 @@ varOuts <- c("NEP", "GPPtrees", "npp", "grossGrowth/bb BA disturbed",
              "DeadWoodVolume", "D", "BA", "H", "Vmort","Wdb",
              "Hc_base", "wf_STKG", "Rh")
 if(!exists("varSel")){
-  varSel <- match(varOuts,varNames)
+  varSel <- match(varOuts,Rprebasso::varNames)
 }
 varOuts[1] <- varNames[46] <- "NEP"
 varOuts[22] <- varNames[45] <- "Rh"
