@@ -678,7 +678,7 @@ runModel <- function(sampleID, outType="dTabs", uncRCP=0,
     rm(list=bioIndNames); gc()
   }  
   
-  if(outType=="testRun") return(list(region = region,initPrebas=initPrebas))
+  if(outType=="testRun") return(list(region = region,initPrebas=initPrebas, harvestLims=HarvLimX))
   if(outType=="kuntaNielu"){
     ####create pdf for test plots 
     marginX= 1:2#(length(dim(out$annual[,,varSel,]))-1)
