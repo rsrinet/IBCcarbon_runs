@@ -891,11 +891,21 @@ runModOut <- function(sampleID, sampleX,modOut,r_no,harvScen,harvInten,rcpfile,a
     # print(outX)
     if(sampleID==sampleForPlots){testPlot(outX,varNames[varSel[ij]],areas)}
     
-    # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-    # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-    # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
+    p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID]
+    p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID]
+    p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID]
     
-    pX <- outX #data.table(p1,p2[,2],p3[,2]) # can be the same segment multiple times
+    pX <- data.table(p1,p2[,2],p3[,2]) # can be the same segment multiple times
+    
+    summDT <- data.table()
+    summDT[, mean := t(colMeans(outX))[1:nYears+1]]
+    summDT[, min:= t(outX[, lapply(.SD, function(x) range(x))])[1:nYears+1,1]]
+    summDT[, max:= t(outX[, lapply(.SD, function(x) range(x))])[1:nYears+1,2]]
+    summDT[, Q1:= t(outX[, lapply(.SD, function(x) quantile(x, probs = c(0.05, 0.25, 0.5, 0.75, 0.95)))])[1:nYears+1,1]]
+    summDT[, Q2:= t(outX[, lapply(.SD, function(x) quantile(x, probs = c(0.05, 0.25, 0.5, 0.75, 0.95)))])[1:nYears+1,2]]
+    summDT[, median:= t(outX[, lapply(.SD, function(x) quantile(x, probs = c(0.05, 0.25, 0.5, 0.75, 0.95)))])[1:nYears+1,3]]
+    summDT[, Q4:= t(outX[, lapply(.SD, function(x) quantile(x, probs = c(0.05, 0.25, 0.5, 0.75, 0.95)))])[1:nYears+1,4]]
+    summDT[, Q5:= t(outX[, lapply(.SD, function(x) quantile(x, probs = c(0.05, 0.25, 0.5, 0.75, 0.95)))])[1:nYears+1,5]]
     
     ##check for NAs
     nax <- data.table(segID=unique(which(is.na(pX),arr.ind=T)[,1]))
@@ -913,6 +923,15 @@ runModOut <- function(sampleID, sampleX,modOut,r_no,harvScen,harvInten,rcpfile,a
                      "_harscen",harvScen,
                      "_harInten",harvInten,"_",
                      rcpfile,"_","sampleID",sampleID,".rdata"))
+    
+    assign(varNames[varSel[ij]],summDT)
+    
+    save(list=varNames[varSel[ij]],
+         file=paste0(path_output, "/outputDT/forCent",r_no,"/",
+                     varNames[varSel[ij]],
+                     "_harscen",harvScen,
+                     "_harInten",harvInten,"_",
+                     rcpfile,"_","sampleID",sampleID,"summary.rdata"))
     rm(list=varNames[varSel[ij]]); gc()
     # save NAs
     if(nrow(nas)>0){
@@ -1352,105 +1371,105 @@ specialVarProc <- function(sampleX,region,r_no,harvScen,harvInten,rcpfile,sample
   ####test plot
   if(sampleID==sampleForPlots){testPlot(outX,"domSpecies",areas)}
   ###take the most frequent species in the periods
-  # p1 <- outX[, .(per1 = Mode(as.numeric(unlist(.SD)))[1]), .SDcols = colsOut1, by = segID]
-  # p2 <- outX[, .(per2 = Mode(as.numeric(unlist(.SD)))[1]), .SDcols = colsOut2, by = segID]
-  # p3 <- outX[, .(per3 = Mode(as.numeric(unlist(.SD)))[1]), .SDcols = colsOut3, by = segID]
-  # pX <- merge(p1,p2)
-  # pX <- merge(pX,p3)
-  domSpecies <- outX #pX
+  p1 <- outX[, .(per1 = Mode(as.numeric(unlist(.SD)))[1]), .SDcols = colsOut1, by = segID]
+  p2 <- outX[, .(per2 = Mode(as.numeric(unlist(.SD)))[1]), .SDcols = colsOut2, by = segID]
+  p3 <- outX[, .(per3 = Mode(as.numeric(unlist(.SD)))[1]), .SDcols = colsOut3, by = segID]
+  pX <- merge(p1,p2)
+  pX <- merge(pX,p3)
+  domSpecies <- pX
   
   
   # rm(domSpecies); gc()
   ###age dominant species
   outX <- domFun(region,varX="age")
-  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  # pX <- merge(p1,p2)
-  # pX <- merge(pX,p3)
-  domAge <- outX #pX
+  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID]
+  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID]
+  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID]
+  pX <- merge(p1,p2)
+  pX <- merge(pX,p3)
+  domAge <- pX
   
   
   ###deciduous Volume Vdec
   outX <- vDecFun(region)
   if(sampleID==sampleForPlots){testPlot(outX,"Vdec",areas)}
-  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  # pX <- merge(p1,p2)
-  # pX <- merge(pX,p3)
-  Vdec <- outX #pX
+  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID]
+  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID]
+  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID]
+  pX <- merge(p1,p2)
+  pX <- merge(pX,p3)
+  Vdec <- pX
   
   
   ###pine Volume Vpine
   outX <- vSpFun(region,SpID=1)
   if(sampleID==sampleForPlots){testPlot(outX,"Vpine",areas)}
-  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  # pX <- merge(p1,p2)
-  # pX <- merge(pX,p3)
-  Vpine <- outX #pX
+  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID]
+  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID]
+  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID]
+  pX <- merge(p1,p2)
+  pX <- merge(pX,p3)
+  Vpine <- pX
   
   
   ###Spruce Volume Vspruce
   outX <- vSpFun(region,SpID = 2)
   if(sampleID==sampleForPlots){testPlot(outX,"Vspruce",areas)}
-  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  # pX <- merge(p1,p2)
-  # pX <- merge(pX,p3)
-  Vspruce <- outX #pX
+  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID]
+  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID]
+  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID]
+  pX <- merge(p1,p2)
+  pX <- merge(pX,p3)
+  Vspruce <- pX
   
   ####WenergyWood
   outX <- data.table(segID=sampleX$segID,apply(region$multiEnergyWood[,,,2],1:2,sum))
   if(sampleID==sampleForPlots){testPlot(outX,"WenergyWood",areas)}
-  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  # pX <- merge(p1,p2)
-  WenergyWood <- outX #merge(pX,p3)
+  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID]
+  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID]
+  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID]
+  pX <- merge(p1,p2)
+  WenergyWood <- merge(pX,p3)
   
   
   ####VenergyWood
   outX <- data.table(segID=sampleX$segID,apply(region$multiEnergyWood[,,,1],1:2,sum))
   if(sampleID==sampleForPlots){testPlot(outX,"VenergyWood",areas)}
-  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  # pX <- merge(p1,p2)
-  VenergyWood <- outX #merge(pX,p3)
+  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID]
+  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID]
+  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID]
+  pX <- merge(p1,p2)
+  VenergyWood <- merge(pX,p3)
   
   
   ####GVgpp
   outX <- data.table(segID=sampleX$segID,region$GVout[,,3])
   if(sampleID==sampleForPlots){testPlot(outX,"GVgpp",areas)}
-  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  # pX <- merge(p1,p2)
-  GVgpp <- outX #merge(pX,p3)
+  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID]
+  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID]
+  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID]
+  pX <- merge(p1,p2)
+  GVgpp <- merge(pX,p3)
   
   
   ####GVw
   outX <- data.table(segID=sampleX$segID,region$GVout[,,4])
   if(sampleID==sampleForPlots){testPlot(outX,"GVw",areas)}
-  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  # pX <- merge(p1,p2)
-  GVw <- outX #merge(pX,p3)
+  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID]
+  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID]
+  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID]
+  pX <- merge(p1,p2)
+  GVw <- merge(pX,p3)
   
   
   ####Wtot
   outX <- data.table(segID=sampleX$segID,apply(region$multiOut[,,c(24,25,31,32,33),,1],1:2,sum))
   if(sampleID==sampleForPlots){testPlot(outX,"Wtot",areas)}
-  # p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID] 
-  # p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID] 
-  # p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID] 
-  # pX <- merge(p1,p2)
-  Wtot <- outX #merge(pX,p3)
+  p1 <- outX[, .(per1 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut1, by = segID]
+  p2 <- outX[, .(per2 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut2, by = segID]
+  p3 <- outX[, .(per3 = rowMeans(.SD,na.rm=T)), .SDcols = colsOut3, by = segID]
+  pX <- merge(p1,p2)
+  Wtot <- merge(pX,p3)
   
   
   # Save all outputs
