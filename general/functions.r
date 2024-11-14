@@ -897,11 +897,9 @@ runModOut <- function(sampleID, sampleX,modOut,r_no,harvScen,harvInten,rcpfile,a
     
     pX <- data.table(p1,p2[,2],p3[,2]) # can be the same segment multiple times
     
-    wtMean <- apply(outX, 2, weighted.mean, w=areas)
-    
     summDT <- data.table()
     summDT[, mean := t(colMeans(outX))[1:nYears+1]]
-    summDT[, wtMean := t(colMeans(wtMean))[1:nYears+1]]
+    summDT[, wtMean := t(sapply(outX, function(x) weighted.mean(x, areas)))[1:nYears+1]]
     summDT[, min:= t(outX[, lapply(.SD, function(x) range(x))])[1:nYears+1,1]]
     summDT[, max:= t(outX[, lapply(.SD, function(x) range(x))])[1:nYears+1,2]]
     summDT[, Q1:= t(outX[, lapply(.SD, function(x) quantile(x, probs = c(0.05, 0.25, 0.5, 0.75, 0.95)))])[1:nYears+1,1]]
