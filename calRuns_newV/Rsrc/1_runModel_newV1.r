@@ -1,5 +1,5 @@
 devtools::source_url("https://raw.githubusercontent.com/rsrinet/IBCcarbon_runs/master/calRuns_newV/Rsrc/settings.r")
-source_url("https://raw.githubusercontent.com/rsrinet/IBCcarbon_runs/refs/heads/master/general/functions.r")
+source_url("https://raw.githubusercontent.com/rsrinet/IBCcarbon_runs/master/general/functions.r")
 
 setX=1
 nSamples <- ceiling(dim(data.all)[1]/nSitesRun)
