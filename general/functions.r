@@ -932,7 +932,7 @@ runModOut <- function(sampleID, sampleX,modOut,r_no,harvScen,harvInten,rcpfile,a
                      varNames[varSel[ij]],
                      "_harscen",harvScen,
                      "_harInten",harvInten,"_",
-                     rcpfile,"_summary_","sampleID",sampleID,".rdata"))
+                     rcpfile,"_summary_sampleID",sampleID,".rdata"))
     rm(list=varNames[varSel[ij]]); gc()
     # save NAs
     if(nrow(nas)>0){
