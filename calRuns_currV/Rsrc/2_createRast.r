@@ -1,4 +1,4 @@
-# r_no <- regions <- 12
+# r_no <- regions <- 2
 devtools::source_url("https://raw.githubusercontent.com/rsrinet/IBCcarbon_runs/master/calRuns_currV/Rsrc/settings.r")
 source_url("https://raw.githubusercontent.com/rsrinet/IBCcarbon_runs/master/general/functions.r")
 rcpfile <- rcps
@@ -25,7 +25,7 @@ if(harvScen %in% c("protect","protectNoAdH")){
   setkey(data.IDs,segID,x,y)
   newIDs <- merge(data.IDs,buf.IDs[,.(x,y,consBuf,newMaakuntaID)]
                   ,by=c("x","y"),all.x=T)
-
+  
   newIDs[!is.na(newMaakuntaID),maakuntaID:=newMaakuntaID]
   newIDs$segID <- newIDs$maakuntaID
   data.IDs <- newIDs
@@ -40,13 +40,14 @@ pdf(paste0("plots/histRast_",r_no,
            rcpfile,".pdf"))
 
 if(!exists("varXs")) varXs <- c(varNames[varSel], specialVars)
-# varXs[1] <- "NEP"
-# varXs[22] <- "Rh"
+varXs[1] <- "NEP"
+varXs[4] <- "grossGrowth"
+varXs[22] <- "Rh"
 for(varX in varXs){
   # varX <- varXs[1]
   fileXs <- list.files(path = paste0(pathFiles), pattern = paste0(varX,"_harscen",harvScen,"_harInten",harvInten,"_",rcps))
-  if(length(fileXs) != nSamples) stop(paste0(nSamples-length(fileXs)," files missing"))
-
+  # if(length(fileXs) != nSamples) stop(paste0(nSamples-length(fileXs)," files missing"))
+  
   outX <- data.table()
   for(i in 1:length(fileXs)){
     load(paste0(pathFiles,fileXs[i]))
@@ -88,7 +89,7 @@ for(varX in varXs){
   hist(rastX, main = paste(varX,"per3"))
   rm(tabX);gc()
   rm(rastX);gc()
- 
+  
   # if(varX!="DeadWoodVolume")  file.remove(paste0(pathFiles,fileXs))
   # file.remove(paste0(pathFiles,fileXs))
   print(varX)
@@ -102,7 +103,7 @@ if(file.exists(paste0("rasters/forCent",r_no,"/",
                       "_harscen",harvScen,
                       "_harInten",harvInten,"_",
                       rcpfile,".tif"))){
-
+  
   print("creating site type raster")
   
   npp = raster(paste0("rasters/forCent",r_no,"/",
