@@ -1237,6 +1237,11 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
                                 latitude=latitude)
   }
   if (vPREBAS == "newVersion"){
+    p0currClim = P0.dt$P0currClim[siteInfo[,2]]
+    fT0AvgCurrClim = fT0.dt$fT0[siteInfo[,2]]
+    print(paste0("length P0 ",length(P0currClim)))
+    print(paste0("length fT0AvgCurrClim ",length(fT0)))
+    print(paste0("length latitude ",length(latitude)))
     initPrebas <- InitMultiSite(nYearsMS = rep(nYears,nSites),siteInfo=siteInfo,
                                 # litterSize = litterSize,#pAWEN = parsAWEN,
                                 pPRELES = pPRELES,
@@ -1260,9 +1265,6 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
                                 p0currClim = P0currClim, 
                                 fT0AvgCurrClim = fT0)
   }
-  print(paste0("lengthP0 ",length(P0currClim)))
-  print(paste0("fT0AvgCurrClim ",length(fT0)))
-  print(paste0("lengthlatitude ",length(latitude)))
   
   if(!is.null(outModReStart)){
     
