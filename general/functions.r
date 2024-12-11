@@ -1014,7 +1014,6 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
     print(paste0("length P0 ",length(p0currClim)))
     print(paste0("length fT0AvgCurrClim ",length(fT0AvgCurrClim)))
     print(paste0("length latitude ",length(latitude)))
-    print(paste0("length siteinfo ",length(siteInfo[,2])))
     print(paste0("length id_P0fT ", length(id_P0fT)))
   }
   ###site Info matrix. nrow = nSites, cols: 1 = siteID; 2 = climID; 3=site type;
@@ -1204,6 +1203,7 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
                        value.var="CO2")[, -1])
   }
   siteInfo[, 2]  = match(as.numeric(siteInfo[, 2]), as.numeric(rownames(clim[[1]])))
+  print(paste0("length siteinfo ",length(siteInfo[,2])))
   # if(harv %in% c("protect","protectNoAdH","protectTapio")){
   #   siteInfo[, 8] <- siteInfo[, 8]+1
   #   oldLayer <- initVar[,,1]
