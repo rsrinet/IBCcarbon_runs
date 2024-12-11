@@ -86,7 +86,8 @@ if(!exists("pPRELES")) pPRELES <- pPREL
 if(!exists("pCROBAS")) pCROBAS <- pCROB
 
 ###switch that should be either 1 or 0 - use 1 for N limitation
-if(!exists("NLimit")) pCROBAS[41,1:3] <- 1
+if(!exists("NLimit")) NLimit <- 1
+pCROBAS[41,1:3] <- NLimit
 
 ###reduce krein parameter in order to increase mortality
 if(!exists("pCrobasX")) pCrobasX <-pCROBAS
