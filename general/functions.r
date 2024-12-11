@@ -1009,8 +1009,13 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
   if (vPREBAS == "newVersion"){
     latitude <- latitude.dt$latitude[match(data.sample$segID,latitude.dt$segID)]
     id_P0fT <- data.sample$CurrClimID[match(clim$id, data.sample$id)]
-    P0currClim <- P0.dt$P0currClim[match(id_P0fT,P0.dt$id)]
-    fT0 <- fT0.dt$fT0[match(id_P0fT,fT0.dt$id)]
+    p0currClim <- P0.dt$P0currClim[match(id_P0fT,P0.dt$id)]
+    fT0AvgCurrClim <- fT0.dt$fT0[match(id_P0fT,fT0.dt$id)]
+    print(paste0("length P0 ",length(p0currClim)))
+    print(paste0("length fT0AvgCurrClim ",length(fT0AvgCurrClim)))
+    print(paste0("length latitude ",length(latitude)))
+    print(paste0("length siteinfo ",length(siteInfo[,2])))
+    print(paste0("length id_P0fT ", length(id_P0fT)))
   }
   ###site Info matrix. nrow = nSites, cols: 1 = siteID; 2 = climID; 3=site type;
   ###4 = nLayers; 5 = nSpecies;
@@ -1213,9 +1218,9 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
   if(!exists("ftTapioParX")) ftTapioParX = ftTapio
   if(!exists("tTapioParX")) tTapioParX = tTapio
   initVar[,6,] <- aaply(initVar,1,findHcNAs,pHcM,pCrobasX,HcModVx)[,6,]*HcFactorX
-  # print(length(latitude))
-  # print(paste0("p0 ",length(P0currClim), " fT0 ",length(fT0), " nsites ", nSites))
-  # print(paste0("siteinfo ", dim(siteInfo)))
+  print(length(latitude))
+  print(paste0("p0 ",length(P0currClim), " fT0 ",length(fT0), " nsites ", nSites))
+  print(paste0("siteinfo ", dim(siteInfo)))
   if (vPREBAS == "master"){
     initPrebas <- InitMultiSite(nYearsMS = rep(nYears,nSites),siteInfo=siteInfo,
                                 # litterSize = litterSize,#pAWEN = parsAWEN,
@@ -1237,11 +1242,6 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
                                 latitude=latitude)
   }
   if (vPREBAS == "newVersion"){
-    p0currClim = P0.dt$P0currClim[siteInfo[,2]]
-    fT0AvgCurrClim = fT0.dt$fT0[siteInfo[,2]]
-    print(paste0("length P0 ",length(p0currClim)))
-    print(paste0("length fT0AvgCurrClim ",length(fT0AvgCurrClim)))
-    print(paste0("length latitude ",length(latitude)))
     initPrebas <- InitMultiSite(nYearsMS = rep(nYears,nSites),siteInfo=siteInfo,
                                 # litterSize = litterSize,#pAWEN = parsAWEN,
                                 pPRELES = pPRELES,
