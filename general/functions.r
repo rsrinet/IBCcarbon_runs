@@ -1260,9 +1260,10 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
                                 p0currClim = P0currClim, 
                                 fT0AvgCurrClim = fT0)
   }
-  print(paste0("lengthP0 ",dim(P0currClim)))
-    print(paste0("fT0AvgCurrClim ",dim(fT0)))
-    print(paste0("lengthlatitude ",dim(latitude)))
+  print(paste0("lengthP0 ",length(P0currClim)))
+  print(paste0("fT0AvgCurrClim ",length(fT0)))
+  print(paste0("lengthlatitude ",length(latitude)))
+  
   if(!is.null(outModReStart)){
     
     ####set the mortality model
