@@ -1011,10 +1011,10 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
     id_P0fT <- data.sample$CurrClimID[match(clim$id, data.sample$id)]
     p0currClim <- P0.dt$P0currClim[match(id_P0fT,P0.dt$id)]
     fT0AvgCurrClim <- fT0.dt$fT0[match(id_P0fT,fT0.dt$id)]
-    print(paste0("length P0 ",length(p0currClim)))
-    print(paste0("length fT0AvgCurrClim ",length(fT0AvgCurrClim)))
-    print(paste0("length latitude ",length(latitude)))
-    print(paste0("length id_P0fT ", length(id_P0fT)))
+    # print(paste0("length P0 ",length(p0currClim)))
+    # print(paste0("length fT0AvgCurrClim ",length(fT0AvgCurrClim)))
+    # print(paste0("length latitude ",length(latitude)))
+    # print(paste0("length id_P0fT ", length(id_P0fT)))
   }
   ###site Info matrix. nrow = nSites, cols: 1 = siteID; 2 = climID; 3=site type;
   ###4 = nLayers; 5 = nSpecies;
@@ -1218,8 +1218,8 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
   if(!exists("ftTapioParX")) ftTapioParX = ftTapio
   if(!exists("tTapioParX")) tTapioParX = tTapio
   initVar[,6,] <- aaply(initVar,1,findHcNAs,pHcM,pCrobasX,HcModVx)[,6,]*HcFactorX
-  print(paste0("siteinfo ", dim(siteInfo)))
-  print(paste0("p0 ",length(p0currClim), " fT0 ",length(fT0AvgCurrClim), " nsites ", nSites))
+  # print(paste0("siteinfo ", dim(siteInfo)))
+  # print(paste0("p0 ",length(p0currClim), " fT0 ",length(fT0AvgCurrClim), " nsites ", nSites))
  
   if (vPREBAS == "master"){
     initPrebas <- InitMultiSite(nYearsMS = rep(nYears,nSites),siteInfo=siteInfo,
