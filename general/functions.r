@@ -1218,8 +1218,9 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
   if(!exists("ftTapioParX")) ftTapioParX = ftTapio
   if(!exists("tTapioParX")) tTapioParX = tTapio
   initVar[,6,] <- aaply(initVar,1,findHcNAs,pHcM,pCrobasX,HcModVx)[,6,]*HcFactorX
-  print(paste0("p0 ",length(p0currClim), " fT0 ",length(fT0AvgCurrClim), " nsites ", nSites))
   print(paste0("siteinfo ", dim(siteInfo)))
+  print(paste0("p0 ",length(p0currClim), " fT0 ",length(fT0AvgCurrClim), " nsites ", nSites))
+ 
   if (vPREBAS == "master"){
     initPrebas <- InitMultiSite(nYearsMS = rep(nYears,nSites),siteInfo=siteInfo,
                                 # litterSize = litterSize,#pAWEN = parsAWEN,
