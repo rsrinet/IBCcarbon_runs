@@ -1263,7 +1263,7 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
                                 yassoRun = 1,
                                 mortMod = mortMod, 
                                 ECMmod = 1, pCN_alfar= parsCN_alfar, 
-                                alpharVersion = 1,  alpharNcalc = T,
+                                alpharVersion = 3,  alpharNcalc = T,
                                 latitude=latitude, 
                                 p0currClim = p0currClim, 
                                 fT0AvgCurrClim = fT0AvgCurrClim)
