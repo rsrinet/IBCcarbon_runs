@@ -1066,47 +1066,47 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
     if(TRUE){ #### if true will vary H and D of pine and spruce using siteType
       
       ###increase spruceP dbh 10% for spruceP sitetype 1:2
-      minDelta <- 0.75
-      data.sample[pine>0. & spruce >0. & fert<2.5,X:=pmax(minDelta,(ba-1.1*baSP-baB)/baP)]
-      data.sample[pine>0. & spruce >0. & fert<2.5,dbhSP:=1.1*dbh]
-      data.sample[pine>0. & spruce >0. & fert<2.5 & X==minDelta,dbhSP:=dbh*(ba-minDelta* baP-baB)/baSP]
-      data.sample[pine>0. & spruce >0. & fert<2.5,dbhP:=X*dbh]
-      data.sample[pine>0. & spruce >0. & fert<2.5 & dbhP<0.5,dbhSP:=pmax(0.5,((ba-(0.5/dbh)*baP-baB)/baSP))]
-      data.sample[pine>0. & spruce >0. & fert<2.5 & dbhP<0.5,dbhP:=0.5]
-      
+      # minDelta <- 0.75
+      # data.sample[pine>0. & spruce >0. & fert<2.5,X:=pmax(minDelta,(ba-1.1*baSP-baB)/baP)]
+      # data.sample[pine>0. & spruce >0. & fert<2.5,dbhSP:=1.1*dbh]
+      # data.sample[pine>0. & spruce >0. & fert<2.5 & X==minDelta,dbhSP:=dbh*(ba-minDelta* baP-baB)/baSP]
+      # data.sample[pine>0. & spruce >0. & fert<2.5,dbhP:=X*dbh]
+      # data.sample[pine>0. & spruce >0. & fert<2.5 & dbhP<0.5,dbhSP:=pmax(0.5,((ba-(0.5/dbh)*baP-baB)/baSP))]
+      # data.sample[pine>0. & spruce >0. & fert<2.5 & dbhP<0.5,dbhP:=0.5]
+      # 
       # data.sample[pine>0. & spruce >0. & fert<2.5 & baSP <= baP,dbhSP:=dbh * (ba - 0.9*baP - baB)/baSP]
       # data.sample[pine>0. & spruce >0. & fert<2.5 & baSP <= baP,dbhP:=pmax(0.9*dbh,0.3)]
       
       ####increase spruce h 10% for spruce sitetype 1:2
-      data.sample[pine>0. & spruce >0. & fert<2.5, X:=pmax(minDelta,(ba-1.1*baSP-baB)/baP)]
-      data.sample[pine>0. & spruce >0. & fert<2.5,hSP:=1.1*h]
-      data.sample[pine>0. & spruce >0. & fert<2.5 & X==minDelta,hSP:=h*(ba-minDelta* baP-baB)/baSP]
-      data.sample[pine>0. & spruce >0. & fert<2.5, hP:=X*h]
-      data.sample[pine>0. & spruce >0. & fert<2.5 & hSP<1.5,hSP:=1.5]
-      data.sample[pine>0. & spruce >0. & fert<2.5 & hP<1.5,hP:=1.5]
-      
+      # data.sample[pine>0. & spruce >0. & fert<2.5, X:=pmax(minDelta,(ba-1.1*baSP-baB)/baP)]
+      # data.sample[pine>0. & spruce >0. & fert<2.5,hSP:=1.1*h]
+      # data.sample[pine>0. & spruce >0. & fert<2.5 & X==minDelta,hSP:=h*(ba-minDelta* baP-baB)/baSP]
+      # data.sample[pine>0. & spruce >0. & fert<2.5, hP:=X*h]
+      # data.sample[pine>0. & spruce >0. & fert<2.5 & hSP<1.5,hSP:=1.5]
+      # data.sample[pine>0. & spruce >0. & fert<2.5 & hP<1.5,hP:=1.5]
+      # 
       # data.sample[pine>0. & spruce >0. & fert<2.5 & baSP <= baP,hSP:=h * (ba - 0.9*baP - baB)/baSP]
       # data.sample[pine>0. & spruce >0. & fert<2.5 & baSP <= baP,hP:=pmax(0.9*h,1.3)]
       #  
       ####increase spruce dbh 5% for spruce sitetype 3
-      data.sample[pine>0. & spruce >0. & fert==3, X:=pmax(minDelta,(ba-1.05*baSP-baB)/baP)]
-      data.sample[pine>0. & spruce >0. & fert==3, dbhP:=X*dbh]   
-      data.sample[pine>0. & spruce >0. & fert==3, dbhSP:=1.05*dbh]
-      data.sample[pine>0. & spruce >0. & fert==3 & X==minDelta,dbhSP:=dbh*(ba-minDelta* baP-baB)/baSP]
-      data.sample[pine>0. & spruce >0. & fert==3 & dbhP<0.5,dbhSP:=pmax(1.5,((ba-(0.5/dbh)*baP-baB)/baSP)*dbh)]
-      data.sample[pine>0. & spruce >0. & fert==3 & dbhP<0.5,dbhP:=0.5]
-      
+      # data.sample[pine>0. & spruce >0. & fert==3, X:=pmax(minDelta,(ba-1.05*baSP-baB)/baP)]
+      # data.sample[pine>0. & spruce >0. & fert==3, dbhP:=X*dbh]   
+      # data.sample[pine>0. & spruce >0. & fert==3, dbhSP:=1.05*dbh]
+      # data.sample[pine>0. & spruce >0. & fert==3 & X==minDelta,dbhSP:=dbh*(ba-minDelta* baP-baB)/baSP]
+      # data.sample[pine>0. & spruce >0. & fert==3 & dbhP<0.5,dbhSP:=pmax(1.5,((ba-(0.5/dbh)*baP-baB)/baSP)*dbh)]
+      # data.sample[pine>0. & spruce >0. & fert==3 & dbhP<0.5,dbhP:=0.5]
+      # 
       # data.sample[pine>0. & spruce >0. & fert==3 & baSP <= baP,dbhSP:=pmin(25,(dbh * (ba - 0.95*baP - baB)/baSP))]
       # data.sample[pine>0. & spruce >0. & fert==3 & baSP <= baP,dbhP:=pmax(0.95*dbh,0.3)]
       
       ####increase spruce h 5% for spruce sitetype 3
-      data.sample[pine>0. & spruce >0. & fert==3, X:=pmax(minDelta,(ba-1.05*baSP-baB)/baP)]
-      data.sample[pine>0. & spruce >0. & fert==3, hP:=X*h]
-      data.sample[pine>0. & spruce >0. & fert==3, hSP:=1.05*h]
-      data.sample[pine>0. & spruce >0. & fert==3 & X==minDelta,hSP:=h*(ba-minDelta* baP-baB)/baSP]
-      data.sample[pine>0. & spruce >0. & fert==3 & hSP<1.5, hSP:=1.5]
-      data.sample[pine>0. & spruce >0. & fert==3 & hP<1.5, hP:=1.5]
-      
+      # data.sample[pine>0. & spruce >0. & fert==3, X:=pmax(minDelta,(ba-1.05*baSP-baB)/baP)]
+      # data.sample[pine>0. & spruce >0. & fert==3, hP:=X*h]
+      # data.sample[pine>0. & spruce >0. & fert==3, hSP:=1.05*h]
+      # data.sample[pine>0. & spruce >0. & fert==3 & X==minDelta,hSP:=h*(ba-minDelta* baP-baB)/baSP]
+      # data.sample[pine>0. & spruce >0. & fert==3 & hSP<1.5, hSP:=1.5]
+      # data.sample[pine>0. & spruce >0. & fert==3 & hP<1.5, hP:=1.5]
+      # 
       # data.sample[pine>0. & spruce >0. & fert==3 & baSP <= baP,hSP:=pmin(30.,(h * (ba - 0.95*baP - baB)/baSP))]
       # data.sample[pine>0. & spruce >0. & fert==3 & baSP <= baP,hP:=pmax(0.95*h,1.3)]
       
@@ -1704,27 +1704,27 @@ pMortSpecies <- function(modOut,minX=0.1,maxX=0.9,stepX=0.1,rangeYear=5){
     pMortXbirch <- nDataBirch <- matrix(0.,length(endX),nClass)
   totBA <- apply(modOut[,,13,,1],1:2,sum)
   pBApine <- modOut[,,13,1,1]/totBA
-  pBAspruce <- modOut[,,13,2,1]/totBA
-  pBAbirch <- modOut[,,13,3,1]/totBA
+  # pBAspruce <- modOut[,,13,2,1]/totBA
+  # pBAbirch <- modOut[,,13,3,1]/totBA
   for(i in 1:length(startX)){
     subPine <-rowMeans(pBApine[,startX[i]:endX[i]],na.rm=T)
-    subSpruce <-rowMeans(pBAspruce[,startX[i]:endX[i]],na.rm=T)
-    subBirch <-rowMeans(pBAbirch[,startX[i]:endX[i]],na.rm=T)
-    for(ij in 1:nClass){
+    # subSpruce <-rowMeans(pBAspruce[,startX[i]:endX[i]],na.rm=T)
+    # subBirch <-rowMeans(pBAbirch[,startX[i]:endX[i]],na.rm=T)
+    # for(ij in 1:nClass){
       if(ij==1){
         cXpine <- which(subPine <= seqX[ij])
-        cXspruce <- which(subSpruce <= seqX[ij])
-        cXbirch <- which(subBirch <= seqX[ij])
+        # cXspruce <- which(subSpruce <= seqX[ij])
+        # cXbirch <- which(subBirch <= seqX[ij])
       } 
       if(ij>1 & ij<nClass){
         cXpine <- which(subPine <= seqX[ij] & subPine > seqX[ij-1])
-        cXspruce <- which(subSpruce <= seqX[ij] & subSpruce > seqX[ij-1])
-        cXbirch <- which(subBirch <= seqX[ij] & subBirch > seqX[ij-1])
+        # cXspruce <- which(subSpruce <= seqX[ij] & subSpruce > seqX[ij-1])
+        # cXbirch <- which(subBirch <= seqX[ij] & subBirch > seqX[ij-1])
       } 
       if(ij==nClass){
         cXpine <- which(subPine > seqX[ij])
-        cXspruce <- which(subSpruce > seqX[ij])
-        cXbirch <- which(subBirch > seqX[ij])
+        # cXspruce <- which(subSpruce > seqX[ij])
+        # cXbirch <- which(subBirch > seqX[ij])
       } 
       # outX <- modOut[cX,,,,]
       if(length(cXpine)>0.){
@@ -1733,23 +1733,23 @@ pMortSpecies <- function(modOut,minX=0.1,maxX=0.9,stepX=0.1,rangeYear=5){
         nDataPine[i,ij] <- length(cXpine)
         pMortXpine[i,ij] <- nMort/length(cXpine)
       }
-      if(length(cXspruce)>0.){
-        mortX <- data.table(which(modOut[cXspruce,startX[i]:endX[i],42,,1]>0,arr.ind=T))
-        nMort <- length(unique(mortX$site))
-        nDataSpruce[i,ij] <- length(cXspruce)
-        pMortXspruce[i,ij] <- nMort/length(cXspruce)
-      }
-      if(length(cXbirch)>0.){
-        mortX <- data.table(which(modOut[cXbirch,startX[i]:endX[i],42,,1]>0,arr.ind=T))
-        nMort <- length(unique(mortX$site))
-        nDataBirch[i,ij] <- length(cXbirch)
-        pMortXbirch[i,ij] <- nMort/length(cXbirch)
-      }
+      # if(length(cXspruce)>0.){
+      #   mortX <- data.table(which(modOut[cXspruce,startX[i]:endX[i],42,,1]>0,arr.ind=T))
+      #   nMort <- length(unique(mortX$site))
+      #   nDataSpruce[i,ij] <- length(cXspruce)
+      #   pMortXspruce[i,ij] <- nMort/length(cXspruce)
+      # }
+      # if(length(cXbirch)>0.){
+      #   mortX <- data.table(which(modOut[cXbirch,startX[i]:endX[i],42,,1]>0,arr.ind=T))
+      #   nMort <- length(unique(mortX$site))
+      #   nDataBirch[i,ij] <- length(cXbirch)
+      #   pMortXbirch[i,ij] <- nMort/length(cXbirch)
+      # }
     }
-  }
-  return(list(pMortPine=pMortXpine,nDataPine=nDataPine,
-              pMortSpruce=pMortXspruce,nDataSpruce=nDataSpruce,
-              pMortBirch=pMortXbirch,nDataBirch=nDataBirch))
+  # }
+  return(list(pMortPine=pMortXpine,nDataPine=nDataPine))
+              # pMortSpruce=pMortXspruce,nDataSpruce=nDataSpruce,
+              # pMortBirch=pMortXbirch,nDataBirch=nDataBirch))
 }
 
 
