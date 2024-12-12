@@ -1020,7 +1020,7 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
   ###4 = nLayers; 5 = nSpecies;
   ###6=SWinit;   7 = CWinit; 8 = SOGinit; 9 = Sinit
   
-  siteInfo <- matrix(c(NA,NA,NA,160,0,0,20,3,1,413,0.45,0.118),nSites,12,byrow = T)
+  siteInfo <- matrix(c(NA,NA,NA,160,0,0,20,3,3,413,0.45,0.118),nSites,12,byrow = T)
   #siteInfo <- matrix(c(NA,NA,NA,3,3,160,0,0,20),nSites,9,byrow = T)
   siteInfo[,1] <- data.sample$segID
   siteInfo[,2] <- as.numeric(data.sample[,id])
@@ -1242,9 +1242,6 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
                                 latitude=latitude)
   }
   if (vPREBAS == "newVersion"){
-    print(pCrobasX)
-    print(pPRELES)
-    print(pCrobasX - pCROBAS)
     initPrebas <- InitMultiSite(nYearsMS = rep(nYears,nSites),siteInfo=siteInfo,
                                 # litterSize = litterSize,#pAWEN = parsAWEN,
                                 pPRELES = pPRELES,
@@ -1267,10 +1264,7 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
                                 latitude=latitude, 
                                 p0currClim = p0currClim, 
                                 fT0AvgCurrClim = fT0AvgCurrClim)
-    print(pCrobasX - initPrebas$pCROBAS)
-    print(pCrobasX[20:24,1:3])
-    print(initPrebas$pCROBAS[20:24,1:3])
-  }
+    }
   
   if(!is.null(outModReStart)){
     
