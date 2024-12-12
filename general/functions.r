@@ -1267,6 +1267,7 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
                                 latitude=latitude, 
                                 p0currClim = p0currClim, 
                                 fT0AvgCurrClim = fT0AvgCurrClim)
+    print(pCrobasX - initPrebas$pCROBAS)
   }
   
   if(!is.null(outModReStart)){
