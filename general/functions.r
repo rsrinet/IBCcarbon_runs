@@ -1242,6 +1242,9 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
                                 latitude=latitude)
   }
   if (vPREBAS == "newVersion"){
+    print(pCrobasX)
+    print(pPRELES)
+    print(pCrobasX - pCROBAS)
     initPrebas <- InitMultiSite(nYearsMS = rep(nYears,nSites),siteInfo=siteInfo,
                                 # litterSize = litterSize,#pAWEN = parsAWEN,
                                 pPRELES = pPRELES,
