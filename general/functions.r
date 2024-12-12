@@ -1268,6 +1268,8 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
                                 p0currClim = p0currClim, 
                                 fT0AvgCurrClim = fT0AvgCurrClim)
     print(pCrobasX - initPrebas$pCROBAS)
+    print(pCrobasX[20:24,1:3])
+    print(initPrebas$pCROBAS[20:24,1:3])
   }
   
   if(!is.null(outModReStart)){
