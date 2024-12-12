@@ -1046,7 +1046,7 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
   
   data.sample[,N:=ba/(pi*(dbh/2)^2/10000)]
   
-  initVar[,1,] <- as.numeric(rep(c(1,1,1),each=nSites))
+  initVar[,1,] <- as.numeric(rep(c(1,0,0),each=nSites))
   initVar[,2,] <- round(as.numeric(data.sample[,age]))
   initVar[,3,] <- as.numeric(data.sample[,h])
   # initVar[,3,][which(initVar[,3,]<1.5)] <- 1.5  ####if H < 1.5 set to 1.5
