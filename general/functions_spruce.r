@@ -1035,7 +1035,7 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
   # initVardension nSites,variables, nLayers
   # variables: 1 = species; 2 = Age; 3 = H; 4=dbh; 5 = ba; 6 = Hc
   initVar <- array(NA, dim=c(nSites,7,3))
-  data.sample[,baP:= (ba * pine/(pine+spruce+decid))]
+  data.sample[,baP:= (ba)]
   data.sample[,baSP:= (ba * spruce/(pine+spruce+decid))]
   data.sample[,baB:= (ba * decid/(pine+spruce+decid))]
   data.sample[,dbhP:= dbh]
@@ -1046,7 +1046,7 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
   
   data.sample[,N:=ba/(pi*(dbh/2)^2/10000)]
   
-  initVar[,1,] <- as.numeric(rep(2,each=nSites, times=3))
+  initVar[,1,] <- as.numeric(rep(c(2,0,0),each=nSites))
   initVar[,2,] <- round(as.numeric(data.sample[,age]))
   initVar[,3,] <- as.numeric(data.sample[,h])
   # initVar[,3,][which(initVar[,3,]<1.5)] <- 1.5  ####if H < 1.5 set to 1.5
