@@ -1220,8 +1220,10 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
   initVar[,6,] <- aaply(initVar,1,findHcNAs,pHcM,pCrobasX,HcModVx)[,6,]*HcFactorX
   # print(paste0("siteinfo ", dim(siteInfo)))
   # print(paste0("p0 ",length(p0currClim), " fT0 ",length(fT0AvgCurrClim), " nsites ", nSites))
- 
-  if (vPREBAS == "master"){
+ save(data.sample, file="dataSample.rdata")
+ save(clim, file="clim.rdata")
+ save(ClCut,ftTapioParX,defaultThin,mortMod,energyCut,tTapioParX, file="thin_pars.rdata")
+ if (vPREBAS == "master"){
     initPrebas <- InitMultiSite(nYearsMS = rep(nYears,nSites),siteInfo=siteInfo,
                                 # litterSize = litterSize,#pAWEN = parsAWEN,
                                 pPRELES = pPRELES,
