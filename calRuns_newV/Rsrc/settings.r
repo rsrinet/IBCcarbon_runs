@@ -1,7 +1,7 @@
 CSCrun=T
 require(devtools)
 library(raster)
-library(rgdal)
+# library(rgdal)
 library(parallel)
 library(ggplot2)
 library(readxl)
