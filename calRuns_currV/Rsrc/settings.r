@@ -90,9 +90,9 @@ if(!exists("pCrobasX")) pCrobasX <- pCROBAS
 pCrobasX[17,1:3] <- pCROBAS[17,1:3]
 
 ###co2 model
-if(!exists("CO2model")) CO2model <- 1
-if (CO2model == 1) pPREL[12:13] <- c(0.5, -0.364)
-if (CO2model == 2) pPREL[12:13] <- c(2000, 0.4)
+if(!exists("CO2model")) CO2model <- 2
+if (CO2model == 1) pPRELES[12:13] <- c(0.5, -0.364)
+if (CO2model == 2) pPRELES[12:13] <- c(2000, 0.4)
 
 # varOuts <- c("NEP/SMI[layer_1]", "GPPtrees", "npp", "grossGrowth", 
 #             "soilC", "V", "age", "WroundWood","VroundWood",
