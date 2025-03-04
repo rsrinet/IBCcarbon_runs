@@ -377,5 +377,5 @@ setkey(regIDs,regID)
 
 ### Load additional input data for newV
 load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/newV_inputs/latitude_",r_no,".rdata"))
-load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/newV_inputs/P0currClim_",r_no,".rdata"))
-load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/newV_inputs/fT0_",r_no,".rdata"))
+load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/newV_inputs/P0currClim.rdata"))
+load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/newV_inputs/fT0.rdata"))

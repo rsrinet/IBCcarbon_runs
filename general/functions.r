@@ -1008,9 +1008,9 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
   if (vPREBAS == "master") latitude=data.sample$latitude
   if (vPREBAS == "newVersion"){
     latitude <- latitude.dt$latitude[match(data.sample$segID,latitude.dt$segID)]
-    id_P0fT <- data.sample$CurrClimID[match(clim$id, data.sample$id)]
-    p0currClim <- P0.dt$P0currClim[match(id_P0fT,P0.dt$id)]
-    fT0AvgCurrClim <- fT0.dt$fT0[match(id_P0fT,fT0.dt$id)]
+    # id_P0fT <- data.sample$CurrClimID[match(clim$id, data.sample$id)]
+    # p0currClim <- P0.dt$P0currClim[match(id_P0fT,P0.dt$id)]
+    # fT0AvgCurrClim <- fT0.dt$fT0[match(id_P0fT,fT0.dt$id)]
     # print(paste0("length P0 ",length(p0currClim)))
     # print(paste0("length fT0AvgCurrClim ",length(fT0AvgCurrClim)))
     # print(paste0("length latitude ",length(latitude)))
@@ -1265,9 +1265,10 @@ create_prebas_input.f = function(r_no, clim, data.sample, nYears,
                                 mortMod = mortMod, 
                                 ECMmod = 1, pCN_alfar= parsCN_alfar, 
                                 alpharVersion = 1,  alpharNcalc = T,
-                                latitude=latitude, 
-                                p0currClim = p0currClim, 
-                                fT0AvgCurrClim = fT0AvgCurrClim)
+                                latitude=latitude#, 
+                                #p0currClim = p0currClim, 
+                                #fT0AvgCurrClim = fT0AvgCurrClim
+                                )
     }
   
   if(!is.null(outModReStart)){
