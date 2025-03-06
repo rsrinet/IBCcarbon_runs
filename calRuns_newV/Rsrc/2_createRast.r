@@ -5,7 +5,7 @@ rcpfile <- rcps
 pathFiles <- paste0("outputDT_zb0/forCent",r_no,"/")
 
 # Rasters subdirectory
-raster_subDir <- paste0("rasters/", forCent_folder)
+raster_subDir <- paste0("rasters/zb0/", forCent_folder)
 # Get or create rasters path
 path_raster <- get_or_create_path(pathVarName = "path_raster", defaultDir = defaultDir, subDir = raster_subDir)
 
