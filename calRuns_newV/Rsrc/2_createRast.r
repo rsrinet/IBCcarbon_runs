@@ -2,7 +2,7 @@
 devtools::source_url("https://raw.githubusercontent.com/rsrinet/IBCcarbon_runs/master/calRuns_newV/Rsrc/settings.r")
 source_url("https://raw.githubusercontent.com/rsrinet/IBCcarbon_runs/master/general/functions.r")
 rcpfile <- rcps
-pathFiles <- paste0("outputDT_zb0/forCent",r_no,"/")
+pathFiles <- paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/outputDT_zb0/forCent",r_no,"/")
 
 # Rasters subdirectory
 raster_subDir <- paste0("rasters/zb0/", forCent_folder)
