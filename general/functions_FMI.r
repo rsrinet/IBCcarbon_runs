@@ -1613,26 +1613,34 @@ create_prebas_input_tmp.f = function(r_no, clim, data.sample, nYears,
 #   initPrebas$ClCut <- as.numeric(1-data.sample[, cons])
 #   print(initPrebas$ClCut)
   
-  if(!is.null(outModReStart)){
-    
-    ####set the mortality model
-    ###reineke for managed forests
-    ### reineke + empirical mod for conservation areas
-    if(mortMod==13){
-      initPrebas$mortMod = c(1,3)#rep(1,nrow(data.sample))
-      # initPrebas$mortMod[data.sample$cons==1] <- 3 
-    }
-    if(!is.null(outModReStart$multiOut)){
-      initPrebas$multiOut[,1:reStartYear,,1:3,] <- outModReStart$multiOut
-      initPrebas$multiOut[,1:reStartYear,8,,] = 0
-      initPrebas$GVout[,1:reStartYear,] <- outModReStart$GVout
-    } 
-    if(!is.null(outModReStart$siteInfo)) initPrebas$siteInfo <- outModReStart$siteInfo
-    if(!is.null(outModReStart$initClearcut)) initPrebas$initClearcut <- outModReStart$initClearcut
-  }
-  if(!is.null(initSoilC)) initPrebas$soilC[,1:reStartYear,,,1:3] <- initSoilC[1:nrow(sampleX),,,,]
+if(harv == "NoHarv" & !rcps%in%c("CurrClim_fmis")){
+  #if(harv == "NoHarv" & !rcps%in%c("CurrClim_fmi")){
+  initPrebas$ClCut = rep(-1, nSites) 
+}
+print(initPrebas$ClCut[1:20])
+
+if(!is.null(outModReStart)){
   
-  return(initPrebas)
+  ####set the mortality model
+  ###reineke for managed forests
+  ### reineke + empirical mod for conservation areas
+  if(mortMod==13){
+    initPrebas$mortMod = c(1,3)#rep(1,nrow(data.sample))
+    # initPrebas$mortMod[data.sample$cons==1] <- 3 
+  }
+  if(!is.null(outModReStart$multiOut)){
+    initPrebas$multiOut[,1:reStartYear,,1:3,] <- outModReStart$multiOut
+    initPrebas$multiOut[,1:reStartYear,8,,] = 0
+    initPrebas$GVout[,1:reStartYear,] <- outModReStart$GVout
+  } 
+  if(!is.null(outModReStart$siteInfo)) initPrebas$siteInfo <- outModReStart$siteInfo
+  if(!is.null(outModReStart$initClearcut)) initPrebas$initClearcut <- outModReStart$initClearcut
+}
+if(!is.null(initSoilC)) initPrebas$soilC[,1:reStartYear,,,1:3] <- initSoilC[1:nrow(sampleX),,,,]
+
+return(initPrebas)
+
+
 }
 
 yasso.mean.climate.f = function(dat, data.sample, startingYear, nYears){
