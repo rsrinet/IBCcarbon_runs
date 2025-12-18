@@ -141,7 +141,7 @@ if(!exists("funX")){
 
 
 # Default working directory
-defaultDir <- "/scratch/project_2000994/srinetri/regional/regRuns_newV"
+defaultDir <- "/scratch/project_2000994/srinetri/regional/regRunsFMI_newV"
 
 
 # Forest centre
