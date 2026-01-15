@@ -1,5 +1,4 @@
 CSCrun=T
-require(devtools)
 library(raster)
 library(parallel)
 library(ggplot2)
@@ -20,11 +19,7 @@ if(CSCrun & vPREBAS == "master"){
               "/projappl/project_2000994/Rpackages/project_rpackages",
               .libPaths()))
 }
-# if(CSCrun){
-#   .libPaths(c("/projappl/project_2000994/project_rpackages", .libPaths()))
-#   libpath <- .libPaths()[1]
-# }
-
+require(devtools)
 require(data.table)
 require(plyr)
 require(dplyr)
@@ -32,17 +27,14 @@ require(abind)
 require(sm)
 
 install_github("ForModLabUHel/Rprebasso", ref=vPREBAS)
+print(paste("PREBAS version",vPREBAS))
 
 require(Rprebasso)
-
-# library(Rprebasso)
 library(DescTools)
-
 
 # Load functions
 # devtools::source_url("https://raw.githubusercontent.com/ForModLabUHel/IBCcarbon_runs/master/general/functions.r")
 devtools::source_url("https://raw.githubusercontent.com/rsrinet/IBCcarbon_runs/master/general/functions.r")
-
 
 # r_no = regions = 2  ### forest center ID
 nCores <- 6  ####  number of cores
@@ -136,13 +128,12 @@ if(!exists("funX")){
 # maskX <- readOGR(dsn = "/scratch/project_2000994/PREBASruns/Kokemaenjoki/shapes/", layer = "Koke_Paavesistoalue_VALUE")
 # forCent <- readOGR(dsn = "/scratch/project_2000994/PREBASruns/Kokemaenjoki/shapes/",layer = "mkeskus13tm35")
 
-
-
-
-
 # Default working directory
 defaultDir <- "/scratch/project_2000994/srinetri/regional/regRunsFMI_newV"
 
+climatepath <- climatepath_orig <- "/scratch/project_2000994/RCP/"
+crsX <- ("+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m
+  +no_defs")
 
 # Forest centre
 forCent_folder <- paste0("forCent", r_no)
@@ -155,8 +146,6 @@ output_subDir <- paste0("outputDT/", forCent_folder)
 
 # NAs subdirectory
 na_subDir <- paste0("NAs/")
-
-
 
 # Get or create working directory path
 path_wrkdir <- get_or_create_path(pathVarName = "path_wrkdir", defaultDir = defaultDir)
@@ -187,7 +176,7 @@ harvestLims <- c(9775000,1466000)
 year1harv=0 ###if 1 set harvLim for Low and MaxSust as 0.6 and 1.2 of HarvLim (Base)
 domSPrun = 0   ### 1 -> run only dominant layer
 startingYear = 2015
-endingYear = 2070
+endingYear = 2024
 if(!exists("nYears")) nYears = endingYear-startingYear
 
 if(!exists("rcps")) rcps = "CurrClim" #c("CanESM2.rcp45.rdata","CanESM2.rcp85.rdata")#c("CurrClim","CanESM2.rcp26.rdata")#,"CanESM2.rcp45.rdata","CanESM2.rcp85.rdata")
@@ -196,8 +185,8 @@ if(!exists("nSitesRun")) nSitesRun = 20000  ###aproximative number of samples fo
 # nSetRuns = 10 #number of set runs
 
 ####period for model output calculations
-if(!exists("per1")) per1=2017:2025
-if(!exists("per2")) per2=2026:2033
+if(!exists("per1")) per1=2015:2024
+if(!exists("per2")) per2=2025:2033
 if(!exists("per3")) per3=2034:2050
 simYear1 = per1 - startingYear
 simYear1 <- simYear1[simYear1>0]
@@ -378,4 +367,3 @@ setkey(regIDs,regID)
 # load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/newV_inputs/latitude_",r_no,".rdata"))
 # load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/newV_inputs/P0currClim.rdata"))
 # load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/newV_inputs/fT0.rdata"))
-
