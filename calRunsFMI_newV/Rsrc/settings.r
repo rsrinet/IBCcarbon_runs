@@ -26,7 +26,7 @@ require(dplyr)
 require(abind)
 require(sm)
 
-install_github("ForModLabUHel/Rprebasso", ref=vPREBAS)
+install_github("ForModLabUHel/Rprebasso", ref=vPREBAS, force = T)
 print(paste("PREBAS version",vPREBAS))
 
 require(Rprebasso)
@@ -34,7 +34,7 @@ library(DescTools)
 
 # Load functions
 # devtools::source_url("https://raw.githubusercontent.com/ForModLabUHel/IBCcarbon_runs/master/general/functions.r")
-devtools::source_url("https://raw.githubusercontent.com/rsrinet/IBCcarbon_runs/master/general/functions.r")
+devtools::source_url("https://raw.githubusercontent.com/rsrinet/IBCcarbon_runs/master/general/functions_FMI.r")
 
 # r_no = regions = 2  ### forest center ID
 nCores <- 6  ####  number of cores
@@ -89,6 +89,8 @@ if(!exists("CO2model")) CO2model <- 1
 if (CO2model == 1) pPREL[12:13] <- c(0.5, -0.364)
 if (CO2model == 2) pPREL[12:13] <- c(2000, 0.4)
 
+if(!exists("soilGridData")) soilGridData <- 0
+if(!exists("HcMod_Init")) HcMod_Init <- 1 ##HcMod (0 = uses the default prebas model, 1 = uses the fHc_fol funcion
 varOuts <- c("NEP/SMI[layer_1]", "GPPtrees", "npp", "grossGrowth", 
              "soilC", "V", "age", "WroundWood","VroundWood",
              "Litter_fol", "Litter_fr", 
@@ -131,10 +133,6 @@ if(!exists("funX")){
 # Default working directory
 defaultDir <- "/scratch/project_2000994/srinetri/regional/regRunsFMI_newV"
 
-climatepath <- climatepath_orig <- "/scratch/project_2000994/RCP/"
-crsX <- ("+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m
-  +no_defs")
-
 # Forest centre
 forCent_folder <- paste0("forCent", r_no)
 
@@ -162,7 +160,11 @@ path_na <- get_or_create_path(pathVarName = "path_na", defaultDir = defaultDir, 
 
 
 # Path to climate data
-climatepath = "/scratch/project_2000994/RCP/"
+if (rcps != "CurrClim_fmi") {
+  climatepath <- climatepath_orig <- "/scratch/project_2000994/RCP/"
+} else {
+  climatepath <- climatepath_orig <- "/scratch/project_2000994/srinetri/regional/fmiClim/"
+}
 
 crsX <- ("+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m
   +no_defs")
@@ -177,7 +179,8 @@ year1harv=0 ###if 1 set harvLim for Low and MaxSust as 0.6 and 1.2 of HarvLim (B
 domSPrun = 0   ### 1 -> run only dominant layer
 startingYear = 2015
 endingYear = 2024
-if(!exists("nYears")) nYears = endingYear-startingYear
+maxYears = endingYear-startingYear+1
+if(!exists("nYears")) nYears = endingYear-startingYear+1
 
 if(!exists("rcps")) rcps = "CurrClim" #c("CanESM2.rcp45.rdata","CanESM2.rcp85.rdata")#c("CurrClim","CanESM2.rcp26.rdata")#,"CanESM2.rcp45.rdata","CanESM2.rcp85.rdata")
 
@@ -362,8 +365,3 @@ if(regSets=="maakunta"){
 
 regIDs <- stats[4:22,3:4]
 setkey(regIDs,regID)
-
-### Load additional input data for newV
-# load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/newV_inputs/latitude_",r_no,".rdata"))
-# load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/newV_inputs/P0currClim.rdata"))
-# load(paste0("/scratch/project_2000994/srinetri/regional/regRuns_newV/newV_inputs/fT0.rdata"))
